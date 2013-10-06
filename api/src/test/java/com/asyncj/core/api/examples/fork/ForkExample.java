@@ -13,29 +13,26 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+package com.asyncj.core.api.examples.fork;
+
+import com.asyncj.core.api.ActorManager;
 import org.junit.Test;
 
 /**
  * User: APOPOV
  * Date: 05.10.13
  */
-public class PingPongExample {
+public class ForkExample {
 
     @Test
     public void testPingPong() {
 
         ActorManager actorManager = new ActorManager();
 
-        Actor1 actor1 = actorManager.createActor(new Actor1Impl(10000000));
-        Actor2[] actor2Array = new Actor2[Runtime.getRuntime().availableProcessors()*10000];
+        int n = 10000000;
+        Actor1 actor1 = actorManager.createActor(new Actor1Impl(n));
 
-        for (int i = 0; i < actor2Array.length; i++) {
-            actor2Array[i] = actorManager.createActor(new Actor2Impl());
-        }
-
-        for (int i = 0; i < actor2Array.length; i++) {
-            actor1.startPings(actor2Array[i]);
-        }
+        actor1.startPings(actorManager,  n);
 
         try {
             Thread.currentThread().join();
@@ -44,12 +41,12 @@ public class PingPongExample {
         }
     }
 
-    interface Actor1 {
-        void startPings(Actor2 actor2);
+    public interface Actor1 {
+        void startPings(ActorManager actorManager, int n);
         void pong(Actor2 actor2, String s);
     }
 
-    interface Actor2 {
+    public interface Actor2 {
         void ping(Actor1 actor1, int count);
     }
 

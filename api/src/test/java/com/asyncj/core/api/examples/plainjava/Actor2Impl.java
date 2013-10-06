@@ -13,9 +13,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-class Actor2Impl implements PingPongExample.Actor2 {
+package com.asyncj.core.api.examples.plainjava;
 
-    public void ping(PingPongExample.Actor1 actor1, int count) {
+class Actor2Impl implements PlainJavaExample.Actor2 {
+
+    public void ping(PlainJavaExample.Actor1 actor1, int count) {
         if (count % 100000 == 0)
             System.out.println(count + " pongs");
         actor1.pong(this, this.toString());

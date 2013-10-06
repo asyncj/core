@@ -13,6 +13,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+package com.asyncj.core.api;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.BlockingQueue;
@@ -57,8 +59,6 @@ public class ActorThread extends Thread {
                     System.out.println("Poison pill received... Shutting down the actor's thread");
                     process = false;
                 }
-
-
 
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
