@@ -1,5 +1,7 @@
 package com.asyncj.core.api.article.mpsclatency;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @author Aliaksei Papou
  * @since 23.11.13
@@ -27,5 +29,9 @@ public class Railway {
 
     public void sendTrain(final int trainNo) {
         train[trainNo].stationIndex++;
+    }
+
+    public void sendTrainToStation(int trainNo, int stationNo) {
+        train[trainNo].stationIndex = stationNo;
     }
 }

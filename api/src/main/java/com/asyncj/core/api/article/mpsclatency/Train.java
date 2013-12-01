@@ -1,16 +1,20 @@
 package com.asyncj.core.api.article.mpsclatency;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @author Aliaksei Papou
  * @since 23.11.13
  */
 public class Train {
 
+    private static int trainCapacity;
     private final long[] goodsArray;
-    public short stationIndex;
+    public int stationIndex;
     private int index;
 
     public Train(int trainCapacity) {
+        this.trainCapacity = trainCapacity;
         goodsArray = new long[trainCapacity];
     }
 
@@ -28,7 +32,7 @@ public class Train {
     }
 
     public int getCapacity() {
-        return goodsArray.length;
+        return trainCapacity;
     }
 
 }
