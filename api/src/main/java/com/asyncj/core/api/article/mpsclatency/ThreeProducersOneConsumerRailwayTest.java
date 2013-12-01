@@ -38,7 +38,7 @@ import java.util.Locale;
  * latency ns = 10.1
  *
  *
- * To fill the difference the following results on the same hardware show Disruptor test for the similar configuration 3P:1C
+ * To fill the difference the following results on the same hardware show Disruptor test for the same 3P:1C
  * https://github.com/LMAX-Exchange/disruptor/blob/master/src/perftest/java/com/lmax/disruptor/ThreePublisherToOneProcessorSequencedThroughputTest.java
  *
  * Starting Queue tests
@@ -52,7 +52,7 @@ import java.util.Locale;
  * Run 2, Disruptor=11,286,681 ops/sec
  * Run 3, Disruptor=11,254,924 ops/sec
  *
- * Below the results of running 3P:1C test with batching (10):
+ * Below the results of running 3P:1C test with batching (10 items per a batch):
  * https://github.com/LMAX-Exchange/disruptor/blob/master/src/perftest/java/com/lmax/disruptor/ThreePublisherToOneProcessorBatchThroughputTest.java
  *
  * Starting Queue tests
