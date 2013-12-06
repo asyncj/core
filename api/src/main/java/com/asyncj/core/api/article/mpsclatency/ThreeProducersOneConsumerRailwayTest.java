@@ -143,7 +143,7 @@ public class ThreeProducersOneConsumerRailwayTest {
 
             trainIndex++;
 
-            if ((i % 100000000) == 0) {
+            if ((trainIndex % 100000000) == 0) {
                 final long duration = System.nanoTime() - start;
 
                 final long ops = (i * 1000L * 1000L * 1000L) / duration;

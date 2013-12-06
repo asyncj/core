@@ -10,7 +10,7 @@ public class Train {
 
     private static int trainCapacity;
     private final long[] goodsArray;
-    public int stationIndex;
+    public AtomicInteger stationIndex = new AtomicInteger();
     private int index;
 
     public Train(int trainCapacity) {

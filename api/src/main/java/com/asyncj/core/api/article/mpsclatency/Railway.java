@@ -21,17 +21,18 @@ public class Railway {
     }
 
     public Train waitTrainOnStation(final int trainNo, final int stationNo) {
-        while ((train[trainNo].stationIndex & mask) != stationNo) {
+        while ((train[trainNo].stationIndex.get() & mask) != stationNo) {
             Thread.yield();
         }
         return train[trainNo];
     }
 
     public void sendTrain(final int trainNo) {
-        train[trainNo].stationIndex++;
+        final AtomicInteger stationIndex = train[trainNo].stationIndex;
+        stationIndex.lazySet(stationIndex.get() + 1);
     }
 
     public void sendTrainToStation(int trainNo, int stationNo) {
-        train[trainNo].stationIndex = stationNo;
+        train[trainNo].stationIndex.set(stationNo);
     }
 }
