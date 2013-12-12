@@ -1,5 +1,7 @@
 package com.asyncj.core.api.article.ultrahighthroughput;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
  * User: APOPOV
  * Date: 05.12.13
@@ -7,7 +9,7 @@ package com.asyncj.core.api.article.ultrahighthroughput;
 public class RailWay {
 
     public static int TRAIN_COUNT = 8;
-    private final long[] trainNoLong;
+    private  AtomicLong[] trainNoLong;
 
     private final Train[] train;
 
@@ -16,10 +18,11 @@ public class RailWay {
 
     public RailWay(final int stationCount, int trainCapacity, int trainCount) {
         TRAIN_COUNT = trainCount;
-        trainNoLong = new long[trainCount];
+        trainNoLong = new AtomicLong[trainCount];
         train = new Train[trainCount];
         for (int i = 0; i < trainCount; i++) {
             train[i] = new Train(trainCapacity);
+            trainNoLong[i] = new AtomicLong();
         }
 
         capacity = findNextPositivePowerOfTwo(stationCount);
@@ -31,14 +34,15 @@ public class RailWay {
     }
 
     public Train waitTrainOnStation(final int trainIndex, final int stationNo) {
-        while ((trainNoLong[trainIndex] & mask) != stationNo) {
+        while ((trainNoLong[trainIndex].get() & mask) != stationNo) {
             Thread.yield();
         }
         return train[trainIndex];
     }
 
     public void sendTrain(final int index) {
-        trainNoLong[index]++;
+        final AtomicLong atomicLong = trainNoLong[index];
+        atomicLong.lazySet(atomicLong.get() + 1);
     }
 
 }
